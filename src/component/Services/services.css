@@ -1,0 +1,33 @@
+.services-box{
+    align-items: center;
+    padding: 5%;
+    background: #f7f4f4;
+}
+.services-box .topic{
+    font-size: 48px;
+    font-weight: 100;
+    font-style: italic;
+    text-align: center;
+}
+   
+
+
+.functions-boxes{
+    display: flex;
+    flex-direction: row;
+}
+.card{
+    margin: 5%;
+    width: 500px;
+    text-align: center;
+}
+
+.card-topic{
+    font-size: 32px;
+    font-weight: 700;
+}
+
+.card img{
+    height: 80px;
+    width: 80px;
+}

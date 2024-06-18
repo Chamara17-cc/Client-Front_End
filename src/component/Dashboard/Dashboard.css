@@ -1,0 +1,46 @@
+/* Dashboard.css */
+.main-content {
+    transition: margin-left 0.3s ease;
+  }
+  
+  .main-content.shifted {
+    margin-left: 250px; /* Adjust the value based on the width of your sidebar */
+  }
+  
+  @media (max-width: 768px) {
+    .main-content {
+      margin-left: 0;
+    }
+  }
+
+
+
+  .welcome-text {
+    text-align: center;
+    margin-top: 50px;
+    margin-left: -100px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .welcome-text h1 {
+    font-size: 36px;
+    color: #333;
+  }
+  
+  .welcome-text p {
+    font-size: 18px;
+    color: #666;
+  }
+  
+
+  .dashboard {
+    background: linear-gradient(to bottom right, #b3e5fc, #e1f5fe); /* Gradient light blue background */
+    /* Add any other styles for the dashboard container */
+  }
+  
+  /* Add any additional styles for the main content here */
+  .newstyle2{
+
+    margin-top: 50px;
+
+  }

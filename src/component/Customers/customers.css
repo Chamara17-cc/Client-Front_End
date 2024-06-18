@@ -1,0 +1,53 @@
+.customer-box{
+    margin: 5%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.cus-img{
+    padding-left: 1%;
+    padding-right: 10%;
+}
+
+.cus-img img{
+    height: 400px;
+    width: 400px;
+}
+.cus-para{
+    margin-bottom: 5%;
+}
+.name{
+    color: #4CAF4F;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.more-details{
+    display: flex;
+    flex-direction: row;
+}
+
+.logos{
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+}
+
+.logos img{
+    height: 30px;
+    width: 30px;
+    padding: 0;  
+    margin-left: 10%;
+    margin-right: 0;
+}
+
+.more-link{
+    padding-left: 30%;
+}
+
+.more-link a{
+    color: #4CAF4F;
+    text-decoration: none;
+    font-weight: 600;
+}

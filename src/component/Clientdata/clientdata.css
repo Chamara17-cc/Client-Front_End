@@ -1,0 +1,39 @@
+.data-box{
+    background: #89ED5B;
+    width: 100%;
+    height:30vh;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.client-text{
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.client-text .topic{
+    font-size: 48px;
+    font-weight: 100;
+    font-style: italic;
+}
+
+.vision{
+    font-size: 30px;
+    font-weight: 150;
+}
+
+.client-logos{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.client-logos img{
+    height: 50px;
+    width: 50px;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 2%;
+}

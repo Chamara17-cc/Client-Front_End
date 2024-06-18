@@ -1,0 +1,32 @@
+.container-my{
+    background: rgb(44, 43, 43);
+}
+
+footer{
+    background: rgb(44, 43, 43);
+    color: white;
+    margin-top: 0;
+    padding-top: 0;
+    
+}
+
+footer a{
+    text-decoration: none;
+}
+
+footer .form-control{
+    background: rgb(44, 43, 43);
+    border: 1px solid grey;
+    color: white;
+}
+
+footer .form-control::placeholder{
+ 
+    color: white;
+}
+
+footer i{
+    background: white;
+    color: white;
+}
+

@@ -1,0 +1,38 @@
+.header-box{
+    width: 100%;
+    height: 60px;
+    margin-top: 5px;
+    border-bottom: 3px solid black;
+    border-top: 3px solid black;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.logo{
+    padding-left: 10%;
+    margin-right: 40%;
+}
+
+.login-btn{
+    padding-left: 20%;
+}
+
+.login-btn .btn-success{
+    background: #544caf;
+    border-radius: 4px;
+    
+} 
+
+.text2{
+
+    color: black !important;
+}
+
+a{
+
+    text-decoration: none !important;
+} 
+
+
+

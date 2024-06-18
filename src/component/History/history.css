@@ -1,0 +1,40 @@
+.history-box{
+    background: #f0f2ef;
+    width: 100%;
+    display: flex;
+    padding: 5%;
+    flex-direction: row;
+    margin-bottom: 0;
+}
+
+.learn-image {
+    height: 300px;
+    width: 300px;
+    margin-right: 20%;
+}
+
+.learn-des .topic{
+    font-size: 48px;
+    font-weight: 100;
+    font-style: italic;
+}
+
+.description{
+    font-size: 30;
+    font-weight: 300;
+    margin-top: 2%;
+}
+
+.learn-btn{
+    margin-top: 5%;
+
+}
+
+.learn-btn .btn-success{
+    background: #4CAF4F;
+    border-radius: 4px;
+    
+}
+   
+
+
