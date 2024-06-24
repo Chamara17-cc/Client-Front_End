@@ -1,4 +1,3 @@
-// Sidebar.js
 import React, { useState } from "react";
 import "./Sidebar.css";
 
@@ -7,10 +6,6 @@ const Sidebar = () => {
 
   const toggleSidebar = () => {
     setIsClosed(!isClosed);
-    const mainContent = document.querySelector(".main-content");
-    if (mainContent) {
-      mainContent.classList.toggle("shifted");
-    }
   };
 
   const handleHamburgerClick = () => {
@@ -33,13 +28,12 @@ const Sidebar = () => {
               </div>
             </div>
             <li>
-              <a href="/dashboard">Dashboard</a>
+              <a href="/clientDashboard">Dashboard</a>
             </li>
-           
           </ul>
         </nav>
         <div id="page-content-wrapper">
-          <button
+          {/* <button
             type="button"
             className="hamburger animated fadeInLeft is-closed"
             onClick={handleHamburgerClick}
@@ -48,7 +42,7 @@ const Sidebar = () => {
             <span className="hamb-top"></span>
             <span className="hamb-middle"></span>
             <span className="hamb-bottom"></span>
-          </button>
+          </button> */}
           <div className="container">
             <div className="row">
               <div className="col-lg-8 col-lg-offset-2"></div>

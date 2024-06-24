@@ -1,89 +1,106 @@
+// src/component/Login/Login.js
 import React, { useState } from 'react';
-
-function Login() {
-  const [email, setEmail] = useState('');
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import {jwtDecode} from 'jwt-decode';
+import { FaUser, FaLock } from 'react-icons/fa';
+import { useAuth } from '../../Auth/AuthContext';
+import './Login.css'; 
+import Sidebar from "../Dashboard/Sidebar"; 
+const Login = () => {
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [submitted, setSubmitted] = useState(false);
-  const [isValidEmail, setIsValidEmail] = useState(true);
-  const [isValidPassword, setIsValidPassword] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Validation logic
-    if (!isValidEmail || !isValidPassword) return;
-    // Simulated login logic
-    // In a real application, you would authenticate the user with a backend
-    setIsLoggedIn(true);
-    setSubmitted(true);
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
   };
 
-  const handleEmailBlur = () => {
-    setIsValidEmail(validateEmail(email));
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
   };
 
-  const handlePasswordBlur = () => {
-    setIsValidPassword(validatePassword(password));
-  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const data = {
+      UserName: username,
+      Password: password,
+    };
 
-  const validateEmail = (email) => {
-    // Email validation logic
-    return email.includes('@');
-  };
+    try {
+      const response = await axios.post('https://localhost:44339/api/Auth/login', data);
+      const { accessToken, refreshToken } = response.data;
+      localStorage.setItem('accessToken', accessToken);
+      localStorage.setItem('refreshToken', refreshToken);
 
-  const validatePassword = (password) => {
-    // Password validation logic
-    return password.length >= 8;
+      const decodedToken = jwtDecode(accessToken);
+      console.log("decoded token: " + decodedToken);
+      const userCategoryId = decodedToken['UserCategoryId'];
+      console.log("user category Id: " + userCategoryId);
+
+      login({
+        userId: decodedToken['UserID'],
+        userName: decodedToken['UserName'],
+        userCategoryId,
+        accessToken,
+        refreshToken,
+      });
+
+      switch (userCategoryId) {
+       
+        case '4':
+          navigate('/clientDashboard');
+          break;
+        default:
+          navigate('/');
+          break;
+      }
+    } catch (error) {
+      if (error.response && error.response.data && error.response.data.message) {
+        alert(error.response.data.message);
+      } else {
+        console.error('Login failed:', error);
+        alert('An error occurred. Please try again later.');
+      }
+    }
   };
 
   return (
-    <div className="container mt-5">
-      <div className="row d-flex justify-content-center">
-        <div className="col-md-6">
-          <div className="card px-5 py-5" id="form1">
-            {!isLoggedIn && !submitted ? (
-              <form onSubmit={handleSubmit}>
-                <div className="forms-inputs mb-4">
-                  <span>Email or username</span>
-                  <input
-                    type="text"
-                    className={`form-control ${!isValidEmail && 'is-invalid'}`}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    onBlur={handleEmailBlur}
-                  />
-                  {!isValidEmail && <div className="invalid-feedback">A valid email is required!</div>}
-                </div>
-                <div className="forms-inputs mb-4">
-                  <span>Password</span>
-                  <input
-                    type="password"
-                    className={`form-control ${!isValidPassword && 'is-invalid'}`}
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    onBlur={handlePasswordBlur}
-                  />
-                  {!isValidPassword && <div className="invalid-feedback">Password must be 8 characters!</div>}
-                </div>
-                <div className="mb-3">
-                  <button type="submit" className="btn btn-dark w-100">
-                    Login
-                  </button>
-                </div>
-              </form>
-            ) : (
-              <div className="success-data">
-                <div className="text-center d-flex flex-column">
-                  <i className="bx bxs-badge-check"></i>
-                  <span className="text-center fs-1">You have been logged in successfully</span>
-                </div>
-              </div>
-            )}
+    <div className="wrapper1">
+      <div className="wrapper">
+        <form onSubmit={handleSubmit}>
+          <div className="input-box">
+            <input 
+              type="text" 
+              placeholder="Username" 
+              value={username}
+              onChange={handleUsernameChange}
+              required 
+            />
+            <FaUser className="icon" />
           </div>
-        </div>
+
+          <div className="input-box">
+            <input 
+              type="password" 
+              placeholder="Password" 
+              value={password}
+              onChange={handlePasswordChange}
+              required 
+            />
+            <FaLock className="icon" />
+          </div>
+
+          <button type="submit">Login</button>
+
+          <div className="remember-forgot">
+            <a href="/forgotPassword">Forgot password?</a>
+          </div>
+        </form>
       </div>
     </div>
   );
-}
+};
 
 export default Login;

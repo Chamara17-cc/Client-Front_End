@@ -17,13 +17,8 @@ const Dashboard = () => {
   }, []);
 
  const clientId = 1;
-  const handleSidebarToggle = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-    // Slide the main content right when the sidebar toggle is clicked
-    const mainContent = document.querySelector(".main-content");
-    if (mainContent) {
-      mainContent.classList.toggle("shifted");
-    }
+  const handleLogout = () => {
+    navigate('/login');
   };
 
   const getData = () => {
@@ -39,7 +34,8 @@ const Dashboard = () => {
   };
 
   const ClickProject = (id) => {
-    navigate("/payment", {state: {clientId}});
+    alert(id)
+    navigate("/payment", {state: {id}});
     
   }
 
@@ -56,7 +52,7 @@ const Dashboard = () => {
           )}
         </div>
         <div className="col-md-2">
-          <button className="btn btn-danger newstyle2 " onClick={handleSidebarToggle}>Logout<ArrowRight /></button>
+          <button className="btn btn-danger newstyle2 " onClick={handleLogout}>Logout<ArrowRight /></button>
         </div>
       </div>
       <Sidebar isOpen={isSidebarOpen} />
@@ -65,13 +61,14 @@ const Dashboard = () => {
           <div className="row">
             {/* Render your cards here using data */}
             <table>
-            <th>Project Id</th><th>Project Name</th><th>Project Status</th>
+            <th>Project Id</th><th>Project Name</th><th>Status</th><th>Progress</th>
             {data.map((item, index) => (
             //              <Card key={index} data={item.projectId}>{item.projectId}</Card>
             <tr key = {item.projectId} onClick = {() => ClickProject(item.projectId)}>
                 <td>{item.projectId}</td>
                 <td>{item.projectName}</td>
                 <td>{item.projectStatus}</td>
+                <td>Project progress bar Chart</td>
             </tr>
 
                         ))}

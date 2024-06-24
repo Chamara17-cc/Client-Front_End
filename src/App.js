@@ -1,3 +1,4 @@
+// src/App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Header from './component/Header/Header';
@@ -7,19 +8,22 @@ import Dashboard from './component/Dashboard/Dashboard';
 import CRUD from './component/CRUD/CRUD';
 import CRUD2 from './component/CRUD/CRUDDjsx';
 import Payment from './component/Payment';
-
+import { AuthProvider } from './Auth/AuthContext';
+import ForgotPassword from './component/ForgotPassword/ForgotPassword';
 
 function App() {
   return (
-    <Router>
-      <AppContent />
-    </Router>
+    <AuthProvider>
+      <Router>
+        <AppContent />
+      </Router>
+    </AuthProvider>
   );
 }
 
 function AppContent() {
   const location = useLocation();
-  const shouldHideComponent = location.pathname !== '/dashboard' && location.pathname !== '/crud' && location.pathname !== '/crud2'&& location.pathname !== '/payment';
+  const shouldHideComponent = location.pathname !== '/clientDashboard' && location.pathname !== '/crud' && location.pathname !== '/crud2' && location.pathname !== '/payment';
 
   return (
     <div>
@@ -27,8 +31,11 @@ function AppContent() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/clientDashboard" element={<Dashboard />} />
+        <Route path="/crud" element={<CRUD />} />
+        <Route path="/crud2" element={<CRUD2 />} />
         <Route path="/payment" element={<Payment />} />
+        <Route path="/forgotPassword" element={<ForgotPassword/>} />
       </Routes>
     </div>
   );
