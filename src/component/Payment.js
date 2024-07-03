@@ -69,20 +69,22 @@ function Payment() {
 
   return (
     <div className="">
-      <div className="d-flex justify-content-center align-items-center">
-        <div className="col-md-2">
+      <div className="d-flex justify-content-center align-items-center ">
+        <div className="col-md-2 ">
           <Sidebar />
         </div>
-        <div className="col-md-9 mt-4">
-          <div className="d-flex align-items-center justify-content-center ">
+        <div className="col-md-9 mt-4 ">
+          <div className="d-flex align-items-center justify-content-center  ">
             <Dropdown projects={projects} onChange={setSelectedProject} />
           </div>
 
           <div>
             <Table data={tableData} />
           </div>
+          <button className="btn btn-info border align-items-center">Download</button>
         </div>
       </div>
+  
     </div>
   );
 }
@@ -126,6 +128,7 @@ const Table = ({ data }) => {
         ))}
       </tbody>
     </table>
+
   );
 };
 
