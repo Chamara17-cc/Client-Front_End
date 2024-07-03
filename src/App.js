@@ -10,6 +10,10 @@ import CRUD2 from './component/CRUD/CRUDDjsx';
 import Payment from './component/Payment';
 import { AuthProvider } from './Auth/AuthContext';
 import ForgotPassword from './component/ForgotPassword/ForgotPassword';
+import Test2 from './component/Test2';
+import Chart from './component/Chart';
+import Sidebar from './component/Dashboard/Sidebar';
+
 
 function App() {
   return (
@@ -23,7 +27,7 @@ function App() {
 
 function AppContent() {
   const location = useLocation();
-  const shouldHideComponent = location.pathname !== '/clientDashboard' && location.pathname !== '/crud' && location.pathname !== '/crud2' && location.pathname !== '/payment';
+  const shouldHideComponent = location.pathname !== '/clientDashboard' && location.pathname !== '/sidebar' && location.pathname !== '/crud2' && location.pathname !== '/payment';
 
   return (
     <div>
@@ -36,6 +40,7 @@ function AppContent() {
         <Route path="/crud2" element={<CRUD2 />} />
         <Route path="/payment" element={<Payment />} />
         <Route path="/forgotPassword" element={<ForgotPassword/>} />
+        <Route path="/sidebar" element={<Sidebar />} />
       </Routes>
     </div>
   );

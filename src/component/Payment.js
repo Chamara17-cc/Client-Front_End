@@ -1,108 +1,83 @@
-import React, { useState , useEffect } from "react";
-import { ArrowRight } from 'react-bootstrap-icons';
-import { Link, useLocation } from 'react-router-dom';
-import Sidebar from "./Dashboard/Sidebar";
-import axios from "axios";
-import './Payment.css'; // Import custom CSS for Payment component
 
-const Payment = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const location = useLocation();
-  const projectId = location.state.id;
+import Sidebar from './Dashboard/Sidebar';
+import React, { useState, useEffect } from 'react';
+import "./Payment.css"
 
-  const handleSidebarToggle = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-    const mainContent = document.querySelector(".main-content");
-    if (mainContent) {
-      mainContent.classList.toggle("shifted");
-    }
-  };
+function Payment() {
+  const [selectedProject, setSelectedProject] = useState('');
+  const [tableData, setTableData] = useState([]);
 
-  //=====get project details=====
-
-  const [projectData, setData] = useState([]);
-
-  const GetData = async () => {
-    try{
-      const url = `https://localhost:44339/api/GetProjectDetails/${projectId}`;
-      const response = await axios.get(url);
-      setData(response.data);
-      console.log(projectData);
-    }
-    catch(error){
-      console.log(error);
-    }
-    
-  }
-
-  const [receipt, setReceipt] = useState();
-
-  const handleFileUpload = (event) => {
-    setReceipt(event.target.files[0]);
-    console.log("receipt selected");
-  };
-
-  const handleReceiptUpload = async () => {
-    if (!receipt) {
-      alert("select a file");
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append("file", receipt);
-
-    const url1 = `https://localhost:44339/api/UploadReceipt/ClientReceipt?ProID=${projectId}`;
-
-    axios.post(url1, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }).then(() => {
-      alert("Upload Successful");
-      setReceipt(null);
-    }).catch ((error) => {
-      console.error("Error uploading file:", error);
-      alert(error)
-    });
+  const projects = ['Project 1', 'Project 2', 'Project 3']; // Example projects
+  
+  const allData = {
+    'Project 1': [
+      { payment: 'Paid', amount: 1000, startDate: '2023-01-01', endDate: '2023-06-01', state: 'Completed' },
+      { payment: 'Unpaid', amount: 2000, startDate: '2023-02-01', endDate: '2023-07-01', state: 'In Progress' },
+    ],
+    'Project 2': [
+      { payment: 'Paid', amount: 1500, startDate: '2023-03-01', endDate: '2023-08-01', state: 'Completed' },
+      { payment: 'Unpaid', amount: 2500, startDate: '2023-04-01', endDate: '2023-09-01', state: 'In Progress' },
+    ],
+    'Project 3': [
+      { payment: 'Paid', amount: 1200, startDate: '2023-05-01', endDate: '2023-10-01', state: 'Completed' },
+      { payment: 'Unpaid', amount: 2200, startDate: '2023-06-01', endDate: '2023-11-01', state: 'In Progress' },
+    ]
   };
 
   useEffect(() => {
-    GetData();
-  },[projectData]);
+    if (selectedProject) {
+      setTableData(allData[selectedProject]);
+    } else {
+      setTableData([]);
+    }
+  }, [selectedProject]);
 
   return (
-    <>
-      <Sidebar isOpen={isSidebarOpen} />
-      <div className={`main-content dashboard ${isSidebarOpen ? "shifted" : ""}`}>
-      <h1>** {projectData.projectName}</h1>
-      <p>{projectData.description}</p>
-        <div className="container">
-        
-          <div className="tiles">
-            <div className="tile">
-            
-              <div className="upload-section">
-              <h1>Payment Upload</h1>
-                <div className="dropzone">
-                
-                  
-                  <img src="http://100dayscss.com/codepen/upload.svg" className="upload-icon" alt="Upload icon" />
-                  <input type="file" onChange={handleFileUpload} />
-                </div>
-                <button className="btn btn-primary" onClick={handleReceiptUpload}>Upload</button>
-              </div>
-            </div>
-           
-            <div className="tile">
-            <h1>Payment Progress</h1>
-           
-              <img src="your-image-url-here" alt="Sample" className="sample-image" />
-            </div>
-          </div>
-        </div>
+    
+    <div>
+      <Sidebar />
+      <Dropdown projects={projects} onChange={setSelectedProject} />
+      <Table data={tableData} />
       </div>
-    </>
+  )
+}
+
+const Dropdown = ({ projects, onChange }) => {
+  return (
+    <select onChange={(e) => onChange(e.target.value)}>
+      <option value="">Select a project</option>
+      {projects.map((project, index) => (
+        <option key={index} value={project}>{project}</option>
+      ))}
+    </select>
   );
 };
 
-export default Payment;
+const Table = ({ data }) => {
+  return (
+    <table>
+      <thead>
+        <tr>
+          <th>Payment</th>
+          <th>Amount</th>
+          <th>Project Start Date</th>
+          <th>Project End Date</th>
+          <th>State</th>
+        </tr>
+      </thead>
+      <tbody>
+        {data.map((row, index) => (
+          <tr key={index}>
+            <td>{row.payment}</td>
+            <td>{row.amount}</td>
+            <td>{row.startDate}</td>
+            <td>{row.endDate}</td>
+            <td>{row.state}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+};
+
+export default Payment

@@ -1,57 +1,33 @@
-import React, { useState } from "react";
-import "./Sidebar.css";
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHome, faInfoCircle, faConciergeBell, faEnvelope, faQuestionCircle, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import './Sidebar.css';
+import payment from '../Payment'
 
 const Sidebar = () => {
-  const [isClosed, setIsClosed] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsClosed(!isClosed);
-  };
-
-  const handleHamburgerClick = () => {
-    toggleSidebar();
-  };
-
-  return (
-    <>
-      <div id="wrapper" className={isClosed ? "toggled" : ""}>
-        <div className="overlay"></div>
-        <nav
-          className="navbar navbar-inverse fixed-top"
-          id="sidebar-wrapper"
-          role="navigation"
-        >
-          <ul className="nav sidebar-nav">
-            <div className="sidebar-header">
-              <div className="sidebar-brand">
-                <a href="#">PROXIMA</a>
-              </div>
+    return (
+        <div className="sidebar">
+            <div className="logo">
+                <h1>PROXIMA</h1>
             </div>
-            <li>
-              <a href="/clientDashboard">Dashboard</a>
-            </li>
-          </ul>
-        </nav>
-        <div id="page-content-wrapper">
-          {/* <button
-            type="button"
-            className="hamburger animated fadeInLeft is-closed"
-            onClick={handleHamburgerClick}
-            data-toggle="offcanvas"
-          >
-            <span className="hamb-top"></span>
-            <span className="hamb-middle"></span>
-            <span className="hamb-bottom"></span>
-          </button> */}
-          <div className="container">
-            <div className="row">
-              <div className="col-lg-8 col-lg-offset-2"></div>
+            <div className="user-profile">
+                <img src="https://th.bing.com/th/id/R.6b0022312d41080436c52da571d5c697?rik=ejx13G9ZroRrcg&riu=http%3a%2f%2fpluspng.com%2fimg-png%2fuser-png-icon-young-user-icon-2400.png&ehk=NNF6zZUBr0n5i%2fx0Bh3AMRDRDrzslPXB0ANabkkPyv0%3d&risl=&pid=ImgRaw&r=0" alt="User Icon" />
+                <p>WELCOME</p>
             </div>
-          </div>
+            <ul>
+                <li><FontAwesomeIcon icon={faHome} /><a href="./clientDashboard"> Dashboard</a></li>
+                <li><FontAwesomeIcon icon={faInfoCircle} /><a href="./payment" >Payments</a></li>
+                <li><FontAwesomeIcon icon={faEnvelope} /> Contact</li>
+                <li><FontAwesomeIcon icon={faQuestionCircle } /> Chat</li>
+            </ul>
+            <div className="bottom-buttons">
+                <button className="logout-button"><FontAwesomeIcon icon={faSignOutAlt} /> Logout</button>
+            
+            
+          
+            </div>
         </div>
-      </div>
-    </>
-  );
+    );
 };
 
 export default Sidebar;

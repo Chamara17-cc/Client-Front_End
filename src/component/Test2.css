@@ -1,0 +1,87 @@
+/* Test2.css */
+
+.card {
+  position: relative;
+  width: 250px;
+  height: 400px;
+  perspective: 1000px;
+  transition: transform 0.6s, top 0.6s; /* Add transition for top property */
+  border: 1px solid #ccc; /* Add border */
+  overflow: hidden; /* Hide any overflow that might cause unexpected lines */
+  margin-bottom: 20px; /* Example margin */
+}
+
+.card:hover {
+  cursor: pointer;
+  top: -10px; /* Adjust top position on hover */
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  /* Adjust the perspective origin for smoother flipping */
+  transform-origin: center;
+}
+
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border: 1px solid #ccc; /* Optional: add border to front and back */
+  top: 0; /* Ensure cards start from top */
+  left: 0; /* Ensure cards start from left */
+}
+
+.card-front {
+  z-index: 2;
+  background-color: #ffffff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 10px 0;
+}
+
+.card-back {
+  transform: rotateY(180deg);
+  z-index: 1;
+  background-color: #f5f5f5;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center; /* Center align text and links */
+}
+
+.card-back p {
+  margin-bottom: 20px;
+}
+
+.card-header {
+  background-color: #f0f0f0; /* Grey background color */
+  padding: 10px;
+  border-bottom: 1px solid #ccc; /* Optional: add border bottom to header */
+}

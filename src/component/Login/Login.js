@@ -29,7 +29,7 @@ const Login = () => {
     };
 
     try {
-      const response = await axios.post('https://localhost:44339/api/Auth/login', data);
+      const response = await axios.post('https://localhost:44339/api/AuthClient/login', data);
       const { accessToken, refreshToken } = response.data;
       localStorage.setItem('accessToken', accessToken);
       localStorage.setItem('refreshToken', refreshToken);

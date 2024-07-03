@@ -33,7 +33,7 @@ const ForgotPassword = () => {
     console.log("UserName:", username);
 
     try {
-      const response = await axios.post('https://localhost:44339/api/Account/password-forgot', data);
+      const response = await axios.post('https://localhost:44339/api/ClientAccount/password-forgot', data);
       console.log('API Response:', response.data);
 
       const randomPassword = response.data.password; // Assuming response contains the random password
