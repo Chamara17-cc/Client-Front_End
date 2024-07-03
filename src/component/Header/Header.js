@@ -1,21 +1,35 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowRight } from 'react-bootstrap-icons';
-import '../Header/header.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "react-bootstrap-icons";
+import "../Header/header.css";
 
 const Header = () => {
   return (
     <div>
-      <div className="header-box">
-        <div className="logo">
-        <Link to='/'> <h1 className="logo-text text2">PROXIMA</h1></Link>
+      <div className="d-flex justify-content-between align-items-center border-bottom ps-4 pe-4 pb-2 pt-2">
+        <div className="">
+          <Link to="/">
+            {" "}
+            <h1 className="text-dark">PROXIMA</h1>
+          </Link>
         </div>
-        <div className="login-btn">
-          <Link to="/login" className="btn btn-success">Login<ArrowRight /></Link>
+
+        <div >
+          
+          <Link to="/login" className="btn btn-outline-success">
+          <div className="d-flex justify-content-center align-items-center">
+          <div className="pe-2">
+            Login
+            </div>
+            <div>
+            <ArrowRight />
+            </div>
+            </div>
+          </Link>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Header;

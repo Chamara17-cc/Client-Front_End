@@ -135,7 +135,7 @@ const ClientCard = ({ client, onMoreInfoClick }) => {
           <button
             type="button"
             onClick={() => onMoreInfoClick(client)}
-            className="btn btn-success"
+            className="btn btn-primary"
           >
             View More
           </button>
@@ -184,7 +184,7 @@ const PaymentForm = ({ onSubmit, onClose }) => {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="paymentDate">
+          <Form.Group controlId="paymentDate" className='mb-3'>
             <Form.Label>Payment Date</Form.Label>
             <Form.Control
               type="date"
@@ -193,7 +193,7 @@ const PaymentForm = ({ onSubmit, onClose }) => {
               required
             />
           </Form.Group>
-          <Form.Group controlId="paymentAmount">
+          <Form.Group controlId="paymentAmount" className='mb-3'>
             <Form.Label>Payment Amount</Form.Label>
             <Form.Control
               type="number"
@@ -202,7 +202,7 @@ const PaymentForm = ({ onSubmit, onClose }) => {
               required
             />
           </Form.Group>
-          <Form.Group controlId="paymentReceipt">
+          <Form.Group controlId="paymentReceipt" className='mb-3'>
             <Form.Label>Payment Receipt</Form.Label>
             <Form.Control
               type="file"
@@ -249,49 +249,47 @@ const ClientList = () => {
   };
 
   return (
-    <div className="d-flex">
+    <div className="d-flex align-items-center justify-content-center">
+      <div className='col-md-3 me-5'>
       <Sidebar />
-      <div className="container d-flex flex-wrap justify-content-center mt-4">
-        {clients.map((client) => (
-          <ClientCard
-            key={client.id}
-            client={client}
-            onMoreInfoClick={handleMoreInfoClick}
-          />
-        ))}
       </div>
+      <div className='col-md-9'>
+      <div className="row row-cols-1 row-cols-md-2 g-0">
+  {clients.map((client) => (
+    <div className="col" key={client.id}>
+      <ClientCard
+        client={client}
+        onMoreInfoClick={handleMoreInfoClick}
+      />
+    </div>
+  ))}
+</div>
 
       <Modal show={selectedClient !== null} onHide={() => setSelectedClient(null)}>
         <Modal.Header closeButton>
-          <Modal.Title>Client Details</Modal.Title>
+          <Modal.Title>Payment Methods</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           {selectedClient && (
-            <div>
-              <p><strong>Name:</strong> {selectedClient.name}</p>
-              <p><strong>Client ID:</strong> {selectedClient.id}</p>
-              <p><strong>Partner ID:</strong> {selectedClient.partnerId}</p>
-              <p><strong>Active Date:</strong> {formatDate(selectedClient.activeDate)}</p>
-              <p><strong>Expire Date:</strong> {formatDate(selectedClient.expireDate)}</p>
-              <p><strong>Age:</strong> {selectedClient.age}</p>
-              <p><strong>Project:</strong> {selectedClient.project}</p>
-              <p><strong>NIC:</strong> {selectedClient.nic}</p>
-              <p><strong>Address:</strong> {selectedClient.address}</p>
-              <p><strong>Country:</strong> {selectedClient.country}</p>
-              <p><strong>Town:</strong> {selectedClient.town}</p>
-              <Button
-                variant="primary"
+            <div className="d-flex align-items-center justify-content-center mt-5 mb-5">
+              <div className='me-2'>
+            
+              <div
+                
                 onClick={handleMakePaymentClick}
+                className='p-4 btn btn-outline-primary'
               >
                 Make Physical Payment
-              </Button>
-              <Button
-                className='ml-2'
-                variant="primary"
+              </div>
+              </div>
+              <div className='ms-2'>
+              <div
+                className='ml-2 p-4 btn btn-outline-primary'
                 onClick={handleOnlineClick}
               >
                 Make Online Payment
-              </Button>
+              </div>
+              </div>
             </div>
           )}
         </Modal.Body>
@@ -334,6 +332,10 @@ const ClientList = () => {
           </Button>
         </Modal.Footer>
       </Modal>
+
+      </div>
+
+      
     </div>
   );
 };

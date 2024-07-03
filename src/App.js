@@ -13,13 +13,15 @@ import ForgotPassword from './component/ForgotPassword/ForgotPassword';
 import Test2 from './component/Test2';
 import Chart from './component/Chart';
 import Sidebar from './component/Dashboard/Sidebar';
+import { Toaster } from'react-hot-toast';
 
 
 function App() {
   return (
     <AuthProvider>
       <Router>
-        <AppContent />
+        <AppContent />   
+        <Toaster />
       </Router>
     </AuthProvider>
   );
