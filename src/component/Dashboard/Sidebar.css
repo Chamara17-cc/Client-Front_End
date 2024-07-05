@@ -79,6 +79,8 @@
 .sidebar ul li:hover {
     background-color: #575757;
     cursor: pointer;
+    color: aliceblue;
+    
 }
 
 .bottom-buttons {
@@ -118,4 +120,9 @@
 
 .logout-button:hover {
     background-color: #d32f2f;
+}
+a{
+    margin-left: 10px;
+   color: white;
+   font-size: 20px;
 }

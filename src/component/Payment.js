@@ -68,8 +68,8 @@ function Payment() {
   }, [selectedProject]);
 
   return (
-    <div className="">
-      <div className="d-flex justify-content-center align-items-center ">
+    <div className=" ">
+      <div className="d-flex  align-items-center ">
         <div className="col-md-2 ">
           <Sidebar />
         </div>
@@ -81,7 +81,13 @@ function Payment() {
           <div>
             <Table data={tableData} />
           </div>
-          <button className="btn btn-info border align-items-center">Download</button>
+          <div className="text-center">
+  <button className="btn btn-info btn-lg mt-3 color-white" type="button">
+    <i className="fas fa-download mr-2"></i> Download
+  </button>
+</div>
+
+
         </div>
       </div>
   
@@ -106,30 +112,34 @@ const Dropdown = ({ projects, onChange }) => {
 
 const Table = ({ data }) => {
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Payment</th>
-          <th>Amount</th>
-          <th>Project Start Date</th>
-          <th>Project End Date</th>
-          <th>State</th>
-        </tr>
-      </thead>
-      <tbody>
-        {data.map((row, index) => (
-          <tr key={index}>
-            <td>{row.payment}</td>
-            <td>{row.amount}</td>
-            <td>{row.startDate}</td>
-            <td>{row.endDate}</td>
-            <td>{row.state}</td>
+    <div className=" ">
+      <table className="table table-striped table-hover">
+        <thead className="thead-dark">
+          <tr>
+            <th>Payment</th>
+            <th>Amount</th>
+            <th>Project Start Date</th>
+            <th>Project End Date</th>
+            <th>State</th>
           </tr>
-        ))}
-      </tbody>
-    </table>
-
+        </thead>
+        <tbody>
+          {data.map((row, index) => (
+            <tr key={index}>
+              <td>{row.payment}</td>
+              <td>${row.amount}</td>
+              <td>{row.startDate}</td>
+              <td>{row.endDate}</td>
+              <td>
+                {row.state}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
+
 
 export default Payment;
