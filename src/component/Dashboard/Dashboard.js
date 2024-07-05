@@ -14,6 +14,7 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Link } from "react-router-dom";
+import ProgressChart from '../Dashboard/ProgressChart '; 
 
 const formatDate = (datetimeString) => {
   const date = new Date(datetimeString);
@@ -22,6 +23,8 @@ const formatDate = (datetimeString) => {
   }
   return date.toISOString().split("T")[0];
 };
+
+
 
 const ClientCard = ({ project, onMoreInfoClick }) => {
   return (
@@ -38,16 +41,22 @@ const ClientCard = ({ project, onMoreInfoClick }) => {
         </div>
         <div className="d-flex align-items-center mt-2">
           <FontAwesomeIcon icon={faCalendarAlt} className="me-2" />
-          <div>Start Date: {formatDate(project.p_StartDate)}</div>
+          <div>Start Date: {project.startDate}</div>
         </div>
         <div className="d-flex align-items-center mt-2">
           <FontAwesomeIcon icon={faCalendarAlt} className="me-2" />
-          <div>Due Date: {formatDate(project.p_DueDate)}</div>
+          <div>Due Date: {project.endDate}</div>
         </div>
         <div className="d-flex align-items-center mt-2">
           <FontAwesomeIcon icon={faTools} className="me-2" />
           <div>Technologies: {project.technologies}</div>
         </div>
+
+        <div className="d-flex align-items-center mt-2">
+          <ProgressChart value={(project.paid/project.total)*100} /> {/* Use the ProgressChart component */}
+        </div>
+
+
         <div className="d-flex justify-content-center mt-3">
           <button
             type="button"
@@ -68,19 +77,32 @@ const ClientList = () => {
   const [showPaymentForm, setShowPaymentForm] = useState(false);
 
   useEffect(() => {
-    fetchData();
+    //fetchData();
+    getData(); // Fetch data when component mounts
   }, []);
 
-  const fetchData = async () => {
-    try {
-      const response = await axios.get(
-        "https://localhost:44339/api/GetProjectList?id=2"
-      );
-      setProjects(response.data);
-    } catch (error) {
-      console.error("Error fetching project list:", error);
-    }
-  };
+  // const fetchData = async () => {
+  //   try {
+  //     const response = await axios.get(
+  //       "https://localhost:44339/api/GetProjectList?id=2"
+  //     );
+  //     setProjects(response.data);
+  //   } catch (error) {
+  //     console.error("Error fetching project list:", error);
+  //   }
+  // };
+
+  const getData=async()=>{
+      try{
+          const response = await axios.get(
+            "https://localhost:44339/api/Dashboard/GetProjectsDetails?clientId=2"
+          );
+          console.log(response.data);
+          setProjects(response.data);
+      }catch (error) {
+
+      }
+  }
 
   const handleMoreInfoClick = (project) => {
     setSelectedProject(project);
