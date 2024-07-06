@@ -1,71 +1,100 @@
 import Sidebar from "./Dashboard/Sidebar";
 import React, { useState, useEffect } from "react";
 import "./Payment.css";
+import axios from "axios";
 
 function Payment() {
-  const [selectedProject, setSelectedProject] = useState("Project 1");
+  const [selectedProject, setSelectedProject] = useState(0);
   const [tableData, setTableData] = useState([]);
+  const [data,setData] = useState([]);
+  const [projects, setProjects] = useState([]);
 
-  const projects = ["Project 1", "Project 2", "Project 3"]; // Example projects
+ // const projects = ["Project 1", "Project 2", "Project 3"]; // Example projects
 
-  const allData = {
-    "Project 1": [
-      {
-        payment: "Paid",
-        amount: 1000,
-        startDate: "2023-01-01",
-        endDate: "2023-06-01",
-        state: "Completed",
-      },
-      {
-        payment: "Unpaid",
-        amount: 2000,
-        startDate: "2023-02-01",
-        endDate: "2023-07-01",
-        state: "In Progress",
-      },
-    ],
-    "Project 2": [
-      {
-        payment: "Paid",
-        amount: 1500,
-        startDate: "2023-03-01",
-        endDate: "2023-08-01",
-        state: "Completed",
-      },
-      {
-        payment: "Unpaid",
-        amount: 2500,
-        startDate: "2023-04-01",
-        endDate: "2023-09-01",
-        state: "In Progress",
-      },
-    ],
-    "Project 3": [
-      {
-        payment: "Paid",
-        amount: 1200,
-        startDate: "2023-05-01",
-        endDate: "2023-10-01",
-        state: "Completed",
-      },
-      {
-        payment: "Unpaid",
-        amount: 2200,
-        startDate: "2023-06-01",
-        endDate: "2023-11-01",
-        state: "In Progress",
-      },
-    ],
+  const getall = async () => {
+    try {
+      const response = await axios.get("https://localhost:44339/api/ClientPayment/GetClientsPayments?userId=2");
+      const projects = await axios.get("https://localhost:44339/api/AdminClientPayment/GetClientProjects");
+      setData(response.data);
+      setTableData(response.data);
+      setProjects(projects.data);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   useEffect(() => {
-    if (selectedProject) {
-      setTableData(allData[selectedProject]);
-    } else {
-      setTableData([]);
+    getall();
+  }, []);
+
+  // const allData = {
+  //   "Project 1": [
+  //     {
+  //       payment: "Paid",
+  //       amount: 1000,
+  //       startDate: "2023-01-01",
+  //       endDate: "2023-06-01",
+  //       state: "Completed",
+  //     },
+  //     {
+  //       payment: "Unpaid",
+  //       amount: 2000,
+  //       startDate: "2023-02-01",
+  //       endDate: "2023-07-01",
+  //       state: "In Progress",
+  //     },
+  //   ],
+  //   "Project 2": [
+  //     {
+  //       payment: "Paid",
+  //       amount: 1500,
+  //       startDate: "2023-03-01",
+  //       endDate: "2023-08-01",
+  //       state: "Completed",
+  //     },
+  //     {
+  //       payment: "Unpaid",
+  //       amount: 2500,
+  //       startDate: "2023-04-01",
+  //       endDate: "2023-09-01",
+  //       state: "In Progress",
+  //     },
+  //   ],
+  //   "Project 3": [
+  //     {
+  //       payment: "Paid",
+  //       amount: 1200,
+  //       startDate: "2023-05-01",
+  //       endDate: "2023-10-01",
+  //       state: "Completed",
+  //     },
+  //     {
+  //       payment: "Unpaid",
+  //       amount: 2200,
+  //       startDate: "2023-06-01",
+  //       endDate: "2023-11-01",
+  //       state: "In Progress",
+  //     },
+  //   ],
+  // };
+
+  // useEffect(() => {
+  //   // if (selectedProject) {
+  //   //   setTableData(allData[selectedProject]);
+  //   // } else {
+  //   //   setTableData([]);
+  //   // }
+  // }, [selectedProject]);
+
+  useEffect(() => {
+    if (selectedProject !== 0) {
+      const x = data.filter(item => item.projectId == selectedProject);
+      setTableData(x);
+    } 
+    if(selectedProject ===0){
+      setTableData(data);
     }
-  }, [selectedProject]);
+  }, [selectedProject, data]);
 
   return (
     <div className=" ">
@@ -101,8 +130,8 @@ const Dropdown = ({ projects, onChange }) => {
       <select onChange={(e) => onChange(e.target.value)}>
         <option value="">Select a project</option>
         {projects.map((project, index) => (
-          <option key={index} value={project}>
-            {project}
+          <option key={index} value={project.projectId}>
+            {project.projectName}
           </option>
         ))}
       </select>
@@ -116,22 +145,22 @@ const Table = ({ data }) => {
       <table className="table table-striped table-hover">
         <thead className="thead-dark">
           <tr>
-            <th>Payment</th>
+            <th>Project</th>
             <th>Amount</th>
-            <th>Project Start Date</th>
-            <th>Project End Date</th>
-            <th>State</th>
+            <th>Date</th>
+            <th>Mode</th>
+            <th>Status</th>
           </tr>
         </thead>
         <tbody>
           {data.map((row, index) => (
             <tr key={index}>
-              <td>{row.payment}</td>
-              <td>${row.amount}</td>
-              <td>{row.startDate}</td>
-              <td>{row.endDate}</td>
+              <td>{row.projectName}</td>
+              <td>${row.paymentAmount}</td>
+              <td>{row.date}</td>
+              <td>{row.status?"Physical":"Online"}</td>
               <td>
-                {row.state}
+                {row.mode}
               </td>
             </tr>
           ))}

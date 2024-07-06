@@ -50,13 +50,19 @@ const ClientCard = ({ project, onMoreInfoClick }) => {
         <div className="d-flex align-items-center mt-2">
           <FontAwesomeIcon icon={faTools} className="me-2" />
           <div>Technologies: {project.technologies}</div>
-        </div>
-
+        </div>  <br/>
+        <p>-Payment Progress-</p>
         <div className="d-flex align-items-center mt-2">
-          <ProgressChart value={(project.paid/project.total)*100} /> {/* Use the ProgressChart component */}
+          <ProgressChart value={project.total==0?0:(project.paid/project.total)*100} /> {/* Use the ProgressChart component */}
+        </div><br/>
+
+        <p> -Project Progress- </p>
+                
+        <div className="d-flex align-items-center mt-2">
+          <ProgressChart value={project.totalTask==0?0:(project.completedTask/project.totalTask)*100} /> {/* Use the ProgressChart component */}
         </div>
 
-
+            
         <div className="d-flex justify-content-center mt-3">
           <button
             type="button"
@@ -75,6 +81,7 @@ const ClientList = () => {
   const [projects, setProjects] = useState([]);
   const [selectedProject, setSelectedProject] = useState(null);
   const [showPaymentForm, setShowPaymentForm] = useState(false);
+  const [monthlyPayment,setMonthlyPayment] = useState(0);
 
   useEffect(() => {
     //fetchData();
@@ -105,6 +112,7 @@ const ClientList = () => {
   }
 
   const handleMoreInfoClick = (project) => {
+    setMonthlyPayment(project.monthlyPayment);
     setSelectedProject(project);
   };
 
@@ -184,6 +192,7 @@ const ClientList = () => {
             <Modal.Title>Payment Methods</Modal.Title>
           </Modal.Header>
           <Modal.Body>
+            <h3>Monthly Payment - {monthlyPayment}</h3> 
             {selectedProject && (
               <div className="d-flex align-items-center justify-content-center mt-5 mb-5">
                 <div className="me-2">
